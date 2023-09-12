@@ -1,15 +1,18 @@
-import 'task_model.dart';
+import '../Model/task_model.dart';
 
+
+// CONTROLLER PARA ADICIONAR, MARCAR COMO FEITA E EXCLUIR TAREFAS
 class TaskController {
   List<Task> tasks = [];
 
   void addTask(String title) {
-    final newTask = Task(id: tasks.length + 1, title: title);
+    final newTask =
+        Task(id: tasks.length + 1, title: title);
     tasks.add(newTask);
   }
 
   void toggleTaskCompletion(int taskId) {
-    final task = tasks.firstWhere((t) => t.id == taskId);
+    Task task = tasks.firstWhere((t) => t.id == taskId);
     task.isCompleted = !task.isCompleted;
   }
 
