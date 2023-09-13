@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Controller/user_controller.dart';
 
-
 // WIDGET DE LOGIN
 class UserLogin extends StatefulWidget {
   @override

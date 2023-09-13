@@ -3,12 +3,12 @@ import 'package:mvc/View/user_location.dart';
 import '../Controller/location_controller.dart';
 import '../Controller/task_controller.dart';
 import '../Controller/user_controller.dart';
+import 'task_add.dart';
 import 'task_list_view.dart';
 import '../Model/task_model.dart';
 
-// WIDGET PARA EXIBIÇÃO DAS TAREFAS E BOTAO DE ADICIONAR
 class Tarefas extends StatefulWidget {
-  const Tarefas({super.key});
+  const Tarefas({Key? key}) : super(key: key);
 
   @override
   TarefasState createState() => TarefasState();
@@ -17,9 +17,13 @@ class Tarefas extends StatefulWidget {
 class TarefasState extends State<Tarefas> {
   final TaskController _taskController = TaskController();
   List<Task> _tasks = [];
+  LocationController locationController = LocationController();
 
   @override
   Widget build(BuildContext context) {
+    // Chame updateTasks aqui, dentro do método build
+    updateTasks(_taskController.tasks);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -33,23 +37,22 @@ class TarefasState extends State<Tarefas> {
         body: TaskListView(
           tasks: _tasks,
           taskController: _taskController,
-          updateTasks: _updateTasks, // Passa a função de atualização
+          updateTasks: updateTasks,
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
               onPressed: () {
-                _addTask(context);
+                addTask(context, _taskController, updateTasks);
               },
               child: const Icon(Icons.add_rounded),
             ),
             TextButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const UserLocation(), // Substitua por sua tela principal
+                      builder: (context) => const UserLocation(),
                     ),
                   );
                 },
@@ -60,45 +63,7 @@ class TarefasState extends State<Tarefas> {
     );
   }
 
-  void _addTask(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
-    // WIDGET PARA ADICIONAR TAREFA
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Nova Tarefa'),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(labelText: 'Descrição da tarefa'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                final taskDescription = controller.text;
-                if (taskDescription.isNotEmpty) {
-                  _taskController.addTask(taskDescription);
-                  _updateTasks(_taskController.tasks);
-                  Navigator.of(context).pop();
-                }
-              },
-              child: const Text('Salvar'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // Função para atualizar as tarefas
-  void _updateTasks(List<Task> updatedTasks) {
+  void updateTasks(List<Task> updatedTasks) {
     setState(() {
       _tasks = updatedTasks;
     });

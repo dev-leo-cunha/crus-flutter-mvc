@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Repository/user_repository.dart';
-import '../View/task_add_list.dart';
+import '../View/task_list_tarefas.dart';
 import '../View/user_login.dart';
 
 // CONTROLLER DE LOGIN E LOGOUT DO USUÁRIO;
@@ -16,7 +16,7 @@ Future<void> login(BuildContext context, String email, String password) async {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              const Tarefas(), // Substitua por sua tela principal
+              const Tarefas(),
         ),
       );
       // Faça alguma coisa com o usuário autenticado
@@ -40,7 +40,7 @@ Future<void> logout(BuildContext context) async {
   _SharedPreferences.remove('token');
   Navigator.of(context).pushReplacement(
     MaterialPageRoute(
-      builder: (context) => UserLogin(), // Substitua por sua tela principal
+      builder: (context) => UserLogin(),
     ),
   );
 }

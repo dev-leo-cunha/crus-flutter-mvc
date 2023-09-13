@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../View/task_add_list.dart';
+import '../View/task_list_tarefas.dart';
 import '../View/user_login.dart';
 
 // FAZ A VERIFICAÇÃO DO TOKEN, SE EXISTIR, MANDA PARA A PÁGINA DE TAREFAS
@@ -18,7 +18,7 @@ class SplashScreen extends State {
           return const CircularProgressIndicator();
         } else if (snapshot.hasData && snapshot.data == true) {
           // O token está presente, navegue para a página de tarefas
-          return const Tarefas();
+          return  const Tarefas();
         } else {
           // O token não está presente, navegue para a página de login
           return UserLogin();
