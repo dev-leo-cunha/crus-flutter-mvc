@@ -3,6 +3,8 @@ import '../Controller/user_controller.dart';
 
 // WIDGET DE LOGIN
 class UserLogin extends StatefulWidget {
+  const UserLogin({super.key});
+
   @override
   UserLoginState createState() => UserLoginState();
 }
