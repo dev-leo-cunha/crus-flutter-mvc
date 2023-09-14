@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Repository/user_repository.dart';
-import '../View/task_list_tarefas.dart';
-import '../View/user_login.dart';
+import '../View/menu.dart';
+import '../View/User/user_login.dart';
 
 // CONTROLLER DE LOGIN E LOGOUT DO USUÁRIO;
 
 Future<void> login(BuildContext context, String email, String password) async {
   SharedPreferences _SharedPreferences = await SharedPreferences.getInstance();
   try {
-    final user = await authenticate(email, password);
+    final user = await authenticate('leo@leo.com', '1'); // ALTERAR
     if (user != null) {
       _SharedPreferences.setString('token', 'Token ${user.token}');
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              const Tarefas(),
+              const Menu(),
         ),
       );
       // Faça alguma coisa com o usuário autenticado
