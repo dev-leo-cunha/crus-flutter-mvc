@@ -12,15 +12,14 @@ Future<void> login(BuildContext context, String email, String password) async {
   try {
     final user = await authenticate('leo@leo.com', '1'); // ALTERAR
     if (user != null) {
-      _SharedPreferences.setString('token', 'Token ${user.token}');
+      _SharedPreferences.setString('token', 'Bearer ${user.token}');
+      _SharedPreferences.setString('fullName', user.fullName);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) =>
-              const Menu(),
+          builder: (context) => const Menu(),
         ),
       );
       // Faça alguma coisa com o usuário autenticado
-      print('Usuário autenticado: ${user.fullName}');
     } else {
       // Caso o usuário não seja autenticado, exiba uma mensagem
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -43,4 +42,15 @@ Future<void> logout(BuildContext context) async {
       builder: (context) => UserLogin(),
     ),
   );
+}
+
+Future<Set<String>?> updateUser(String newName, String newPassword,
+    String newPasswordRepeat, String password) async {
+  final results =
+      await update(newName, newPassword, newPasswordRepeat, password);
+
+  if (results != null) {
+    return results;
+  }
+  return null;
 }

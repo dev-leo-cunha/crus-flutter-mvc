@@ -13,14 +13,9 @@ class SplashScreen extends State {
     return FutureBuilder(
       future: checkToken(), // Função que verifica a presença do token
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Enquanto estiver esperando, você pode exibir um indicador de carregamento
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasData && snapshot.data == true) {
-          // O token está presente, navegue para a página de tarefas
-          return  const Menu();
+        if (snapshot.hasData && snapshot.data == true) {
+          return const Menu();
         } else {
-          // O token não está presente, navegue para a página de login
           return const UserLogin();
         }
       },

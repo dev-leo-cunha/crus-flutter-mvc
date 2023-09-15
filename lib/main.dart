@@ -9,5 +9,6 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  SplashScreen createState() => SplashScreen(); // inicia a tela pelo Splash para verificar se o usuário está logado
+  SplashScreen createState() => SplashScreen(); 
+  // inicia a tela pelo Splash para verificar se o usuário está logado
 }
